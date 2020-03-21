@@ -16,6 +16,47 @@ Install dependencies with `npm install`
 
 Launch api with command `npm run start`
 
-That's it! 
+######################################
 
-Though you should probably comment out line 31 & 32 in app.js, it's what populates the movie collection on launch, and creates the contest :) 
+Routes: 
+    - POST on /promo to create a promo code with body format:
+
+    {
+    "name": "WeatherCode",
+    "avantage": { "percent": 20 },
+    "restrictions": {
+        "@or": [
+        {
+            "@age": {
+            "eq": 40
+            }
+        },
+        {
+            "@age": {
+            "lt": 30,
+            "gt": 15
+            }
+        }
+        ],
+        "@date": {
+        "after": "2019-01-01",
+        "before": "2020-06-30"
+        },
+        "@meteo": {
+        "is": "clear",
+        "temp": {
+            "gt": "15"
+        }
+        }
+    }
+    }
+
+
+- PUT on /promo to validate a promo code with body format:
+    {
+    "promocode_name": "Hello",
+    "arguments": {
+        "age": 25,
+        "meteo": { "town": "Lyon" }
+    }
+    }
